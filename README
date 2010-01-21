@@ -85,27 +85,18 @@ extension 'mp3':
 
     $ cd $(md-dir-view `md-ext mp3`)
 
-Or, a view of all pdf files, shown in nautilus:
+I'm now in a the generated "view" directory:
+
+    $ ls
+    Bland Street Bloom  Government in the Future  Veil of Maya
+
+What about a view of all pdf files, shown in nautilus:
 
     $ nautilus $(md-dir-view `md-ext pdf`)
 
 This is an example of what you might see:
 
     http://i.imgur.com/tcf22.png
-
-----------------------------------------------------------------------
-- Importing objects
-----------------------------------------------------------------------
-
-Suppose you have a song stored as an MP3 which you want to import into
-the object store. Instead of creating an object directory and
-populating the metadata files manually, you can use an import utility
-which gathers the metadata from the ID3 data or accesses a public
-database such as MusicBrainz.
-
-For movies, you can query a public database such as IMDB.
-
-For academic papers, you can query CiteseerX or arXiv.
 
 ----------------------------------------------------------------------
 - md-keys
