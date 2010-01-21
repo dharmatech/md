@@ -1,0 +1,7 @@
+#!/bin/bash
+
+dir=`md-new-dir`
+
+ext=${1#*.}
+
+cp $1 $dir/data.$ext

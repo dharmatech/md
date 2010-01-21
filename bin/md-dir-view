@@ -1,0 +1,14 @@
+#!/bin/bash
+
+dir=`tempfile`
+
+rm $dir
+
+mkdir $dir
+
+for id in $*
+do
+    ln -s `pwd`/$id/data.* "$dir/`cat $id/title`"
+done
+
+echo $dir

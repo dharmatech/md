@@ -1,0 +1,7 @@
+#!/bin/sh
+
+dir=$((`ls | tail -1 | sed 's/^0*//'` + 1))
+
+mkdir `printf "%08i" $dir`
+
+echo `printf "%08i" $dir`

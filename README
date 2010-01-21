@@ -1,0 +1,141 @@
+
+----------------------------------------------------------------------
+- The UNIX filesystem as an object store
+----------------------------------------------------------------------
+
+With MP3 we have ID3; i.e. a standard for metadata. Thus we have audio
+file organizers like iTunes, Amarok, and Banshee.
+
+But what about PDF files (research papers, books, manuals)? Images?
+Movies? The situation isn't as nice for these.
+
+With the UNIX filesystem, a general scheme for metadata storage can be
+acheived.
+
+Every file goes in it's own "object" directory.
+
+Suppose I have 'avatar.avi'. A directory is created, the name of which
+is a unique id:
+
+    00000001
+
+Inside that directory are various files:
+
+    budget  data.avi  date  director  starring  title
+
+The metadata was stored as such:
+
+    $ echo 'Avatar'          >  title
+    $ echo '2009'            >  date
+    $ echo 'James Cameron'   >  director
+    $ echo 'Sam Worthington' >  starring
+    $ echo 'Zoe Saldana'     >> starring
+    $ echo '237000000'       >  budget
+
+All the "object" directories are kept under a single directory:
+
+    00000001
+    00000002
+    00000003
+    ...
+
+----------------------------------------------------------------------
+- Views into the object store
+----------------------------------------------------------------------
+
+OK, so how do you get to your data after it's placed into the store?
+
+You generate a "view" into the store based on some criteria.
+
+If I'm in the store directory, a very simple criteria is simply "*",
+i.e. all the objects.
+
+Here I'm going to generate a view intended for display by Emacs's Org
+Mode:
+
+    $ md-org-view *
+
+This is what I see after the view is created:
+
+    http://i.imgur.com/oqDid.png
+
+Each item in the list is a hyperlink to the media file corresponding
+to that object.
+
+Let me generate a view of objects with 'Scheme' in the title:
+
+    $ md-org-view `md-grep title Scheme`
+
+The md-grep command outputs a list of object IDs. The md-org-view
+command accepts a list of IDs.
+
+Let's generate a view of objects authored by Chomsky:
+
+    $ md-org-view `md-grep author Chomsky`
+
+----------------------------------------------------------------------
+- Directory views
+----------------------------------------------------------------------
+
+The 'md-dir-view' command creates a directory with links to data
+files.
+
+For example, let's say I want a view of objects with the file
+extension 'mp3':
+
+    $ cd $(md-dir-view `md-ext mp3`)
+
+Or, a view of all pdf files, shown in nautilus:
+
+    $ nautilus $(md-dir-view `md-ext pdf`)
+
+This is an example of what you might see:
+
+    http://i.imgur.com/tcf22.png
+
+----------------------------------------------------------------------
+- Importing objects
+----------------------------------------------------------------------
+
+Suppose you have a song stored as an MP3 which you want to import into
+the object store. Instead of creating an object directory and
+populating the metadata files manually, you can use an import utility
+which gathers the metadata from the ID3 data or accesses a public
+database such as MusicBrainz.
+
+For movies, you can query a public database such as IMDB.
+
+For academic papers, you can query CiteseerX or arXiv.
+
+----------------------------------------------------------------------
+- md-keys
+----------------------------------------------------------------------
+
+Returns all keys found in the store. For example:
+
+    $ md-keys
+    abstract
+    album
+    artist
+    author
+    authors
+    date
+    publisher
+    summary
+    title
+    track
+
+----------------------------------------------------------------------
+- md-values KEY
+----------------------------------------------------------------------
+
+Finds all objects with KEY, retrieves the corresponding values, and
+returns them. For example:
+
+    $ md-values author
+    Bjarne Stroustrup
+    Jonathan Bartlett
+    Noam Chomsky
+    Peter Seibel
+    Richard Blum
+

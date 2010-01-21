@@ -1,0 +1,12 @@
+#!/bin/bash
+
+file=`tempfile --directory . --suffix '.org'`
+
+for id in $*
+do
+    printf "[[%s][%s]]\n\n" $id/data.org "`cat $id/title`" >> $file
+done
+
+emacsclient -nw $file
+
+rm $file

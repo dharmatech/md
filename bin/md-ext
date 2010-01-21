@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for id in *
+do
+    if test -f $id/*.$1
+    then
+        echo $id
+    fi
+done

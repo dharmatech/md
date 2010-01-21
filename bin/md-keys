@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for dir in *
+do
+    ls $dir
+done | grep -v 'data.*' | sort | uniq
