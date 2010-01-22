@@ -130,3 +130,11 @@ returns them. For example:
     Peter Seibel
     Richard Blum
 
+----------------------------------------------------------------------
+- md-new-dir
+----------------------------------------------------------------------
+
+You can create a new object directory with 'md-new-dir':
+
+    $ cd `md-new-dir`
+
