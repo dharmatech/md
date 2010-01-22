@@ -138,3 +138,38 @@ You can create a new object directory with 'md-new-dir':
 
     $ cd `md-new-dir`
 
+----------------------------------------------------------------------
+- md-set
+----------------------------------------------------------------------
+
+Creating a key value pair is as simple as:
+
+    $ echo 2010-01-01 > date
+
+You can use 'md-set' to do the same thing:
+
+    $ md-set date 2010-01-01
+
+One nice thing about 'md-set' is that bash can provide completion for
+the key if you include this code in your 'bashrc':
+
+    _md-set()
+    {
+    
+        local cur
+    
+        cur=`_get_cword`
+    
+        COMPREPLY=( $( compgen -W "`cd .. ; md-keys`" -- $cur ) )
+    
+    }
+    
+    complete -F _md-set md-set
+
+For example, on my system, I see this when I trigger completion:
+
+    $ md-set 
+    abstract   artist     authors    publisher  title      
+    album      author     date       summary    track
+
+----------------------------------------------------------------------
